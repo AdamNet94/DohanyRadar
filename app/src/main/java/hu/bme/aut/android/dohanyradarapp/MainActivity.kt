@@ -2,6 +2,9 @@ package hu.bme.aut.android.dohanyradarapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.SearchView
 import hu.bme.aut.android.dohanyradarapp.adapter.TobaccoPageAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -19,4 +22,6 @@ class MainActivity : AppCompatActivity() {
 
         vpTobacco.adapter = TobaccoPageAdapter(supportFragmentManager)
     }
+
+
 }

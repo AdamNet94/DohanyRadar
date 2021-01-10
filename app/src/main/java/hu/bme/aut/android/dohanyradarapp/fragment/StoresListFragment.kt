@@ -3,9 +3,8 @@ package hu.bme.aut.android.dohanyradarapp.fragment
 import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import hu.bme.aut.android.dohanyradarapp.R
@@ -46,8 +45,6 @@ class StoresListFragment: Fragment(){
             }
         }
         )
-
-
     }
 
     override fun onCreateView(
@@ -55,10 +52,30 @@ class StoresListFragment: Fragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        setHasOptionsMenu(true)
         return inflater.inflate(R.layout.store_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         rvStores.adapter = storeAdapter
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.search_menu, menu)
+        var menuItem = menu.findItem(R.id.search)
+        var searchView = menuItem.actionView as SearchView
+        var queryTextListener = QueryTextListner()
+        searchView.setOnQueryTextListener(queryTextListener)
+    }
+
+    inner class QueryTextListner : SearchView.OnQueryTextListener {
+        override fun onQueryTextSubmit(p0: String?): Boolean {
+            return false;
+        }
+        override fun onQueryTextChange(p0: String?): Boolean {
+            storeAdapter.storefilter.filter(p0)
+            return false;
+        }
     }
 }
