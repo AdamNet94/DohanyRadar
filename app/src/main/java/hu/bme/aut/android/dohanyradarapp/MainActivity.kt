@@ -13,6 +13,7 @@ import hu.bme.aut.android.dohanyradarapp.model.Store
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         try {
             Thread.sleep(2000)

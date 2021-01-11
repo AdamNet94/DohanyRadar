@@ -7,6 +7,7 @@ import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import hu.bme.aut.android.dohanyradarapp.DetailHelper
 import hu.bme.aut.android.dohanyradarapp.R
 import hu.bme.aut.android.dohanyradarapp.adapter.StoreAdapter
 import hu.bme.aut.android.dohanyradarapp.model.SharedModel
@@ -16,12 +17,12 @@ import kotlinx.android.synthetic.main.store_list.*
 
 class StoresListFragment: Fragment(), StoreAdapter.StoreItemClickListener {
 
-    companion object {
-        private const val KEY_STORE_DESCRIPTION = "STOREID"
+    public companion object {
+
     }
 
     private lateinit var storeAdapter: StoreAdapter
-    private  var stores = mutableListOf<Store>()
+    //private  var stores = mutableListOf<Store>()
     private val model: SharedModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,7 +30,7 @@ class StoresListFragment: Fragment(), StoreAdapter.StoreItemClickListener {
         storeAdapter = StoreAdapter(this)
 
         model.stores?.observe(this, Observer<List<Store>> { stores ->
-            storeAdapter.addAll(stores)
+            storeAdapter.addAll(model.stores.value!!.toList())
         })
     }
 
@@ -67,18 +68,19 @@ class StoresListFragment: Fragment(), StoreAdapter.StoreItemClickListener {
 
     override fun onItemClick(clickedStore: Store) {
 
-        val bundle = Bundle()
+        DetailHelper.popUpDetails(clickedStore.id.toInt(),this)
+        /*val bundle = Bundle()
         bundle.putInt(KEY_STORE_DESCRIPTION, clickedStore.id.toInt())
 
         val storeDetailsFragment = DetailFragment()
         storeDetailsFragment.arguments = bundle
 
+        //model.getImageFromServer(clickedStore.id.toInt())
         //val backStateName = storeDetailsFragment.javaClass.name
         storeDetailsFragment.setTargetFragment(this,0)
         storeDetailsFragment.show(requireActivity().supportFragmentManager, "TAG")
 
+         */
     }
-
-
 
 }
