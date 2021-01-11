@@ -1,5 +1,6 @@
 package hu.bme.aut.android.dohanyradarapp.retrofit
 
+import androidx.lifecycle.LiveData
 import hu.bme.aut.android.dohanyradarapp.model.Store
 import retrofit2.Call
 import retrofit2.http.GET

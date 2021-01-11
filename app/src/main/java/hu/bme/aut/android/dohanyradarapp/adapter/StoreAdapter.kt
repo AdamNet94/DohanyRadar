@@ -13,15 +13,16 @@ import hu.bme.aut.android.dohanyradarapp.R
 import hu.bme.aut.android.dohanyradarapp.model.Store
 import kotlinx.android.synthetic.main.store_rowitem.view.*
 
-class StoreAdapter: RecyclerView.Adapter<StoreAdapter.ViewHolder>(), Filterable{
+class StoreAdapter(private var itemClickListener: StoreItemClickListener?): RecyclerView.Adapter<StoreAdapter.ViewHolder>(), Filterable{
 
     private val storeList = mutableListOf<Store>()
     private var storeListFull = mutableListOf<Store>()
+
     var storefilter = StoreFilter()
+
+
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         super.onAttachedToRecyclerView(recyclerView)
-
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -32,16 +33,24 @@ class StoreAdapter: RecyclerView.Adapter<StoreAdapter.ViewHolder>(), Filterable{
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val store = storeList[position]
+        holder.store = store
         holder.tvName.text = store.name
         holder.tvAdress.text = store.address
         holder.tvisOpen.text = if(store.isOpen) "Nyitva" else "Zárva"
 
     }
 
-    class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
+    inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val tvName: TextView = itemView.StoreName
         val tvAdress: TextView = itemView.StoreAddress
         val tvisOpen: TextView  = itemView.isOpen
+        var store :Store? = null
+
+        init {
+            itemView.setOnClickListener {
+                store?.let { store -> itemClickListener?.onItemClick(store) }
+            }
+        }
     }
 
     override fun getItemCount() =  storeList.size
@@ -50,7 +59,6 @@ class StoreAdapter: RecyclerView.Adapter<StoreAdapter.ViewHolder>(), Filterable{
         storeList.clear()
         storeList.addAll(stores)
         storeListFull = mutableListOf<Store>().apply{ addAll(storeList)}
-        Log.d("TAG","store szie after dowladed from RESTAPI:"+ storeList.size.toString())
         notifyDataSetChanged()
     }
 
@@ -85,5 +93,9 @@ class StoreAdapter: RecyclerView.Adapter<StoreAdapter.ViewHolder>(), Filterable{
             notifyDataSetChanged()
         }
 
+    }
+
+    interface StoreItemClickListener{
+        fun onItemClick(clickedStore: Store)
     }
 }

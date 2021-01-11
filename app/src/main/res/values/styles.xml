@@ -11,4 +11,8 @@
         <item name="android:windowBackground">@drawable/smoke</item>
     </style>
 
+    <style name="FullScreen">
+        <item name="android:windowIsFloating">false</item>
+    </style>
+
 </resources>
