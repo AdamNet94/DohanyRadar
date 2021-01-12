@@ -17,10 +17,6 @@ import kotlinx.android.synthetic.main.store_list.*
 
 class StoresListFragment: Fragment(), StoreAdapter.StoreItemClickListener {
 
-    public companion object {
-
-    }
-
     private lateinit var storeAdapter: StoreAdapter
     //private  var stores = mutableListOf<Store>()
     private val model: SharedModel by activityViewModels()
@@ -69,18 +65,6 @@ class StoresListFragment: Fragment(), StoreAdapter.StoreItemClickListener {
     override fun onItemClick(clickedStore: Store) {
 
         DetailHelper.popUpDetails(clickedStore.id.toInt(),this)
-        /*val bundle = Bundle()
-        bundle.putInt(KEY_STORE_DESCRIPTION, clickedStore.id.toInt())
-
-        val storeDetailsFragment = DetailFragment()
-        storeDetailsFragment.arguments = bundle
-
-        //model.getImageFromServer(clickedStore.id.toInt())
-        //val backStateName = storeDetailsFragment.javaClass.name
-        storeDetailsFragment.setTargetFragment(this,0)
-        storeDetailsFragment.show(requireActivity().supportFragmentManager, "TAG")
-
-         */
     }
 
 }

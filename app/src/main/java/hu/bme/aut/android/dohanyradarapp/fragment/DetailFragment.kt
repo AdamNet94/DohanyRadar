@@ -23,7 +23,7 @@ class DetailFragment: DialogFragment() {
         setStyle(STYLE_NORMAL, R.style.FullScreen)
         var storeID = -1
         arguments?.let { args ->
-            storeID = args.getInt("STOREID") ?: -1
+            storeID = args.getInt("STOREID")
         }
         // stores ID from the REST api starts with 1 and Arryas/Lists are indexed from 0, hence the -1
         selectedStore = model.stores.value!![storeID-1]

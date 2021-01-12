@@ -11,7 +11,4 @@ import retrofit2.http.Query
 interface TobaccoStoreAPI {
     @GET("tobbacoshop")
     fun getStores(): Call<List<Store>>
-
-    @GET("tobbacoshop/{id}/image")
-    fun getImage(@Path("id") storeId: Int): Call<ResponseBody>
 }

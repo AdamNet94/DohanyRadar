@@ -35,7 +35,4 @@ class TobaccoPageAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm, BEHAVIO
     override fun getPageTitle(position: Int): String {
         return mFragmentTitleList[position]
     }
-    companion object{
-        const val NUM_PAGES = 2
-    }
 }

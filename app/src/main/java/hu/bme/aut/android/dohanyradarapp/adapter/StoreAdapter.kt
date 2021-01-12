@@ -1,5 +1,6 @@
 package hu.bme.aut.android.dohanyradarapp.adapter
 
+import android.graphics.Color
 import android.nfc.Tag
 import android.util.Log
 import android.view.LayoutInflater
@@ -20,11 +21,6 @@ class StoreAdapter(private var itemClickListener: StoreItemClickListener?): Recy
 
     var storefilter = StoreFilter()
 
-
-    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
-        super.onAttachedToRecyclerView(recyclerView)
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.store_rowitem, parent, false)
@@ -36,7 +32,15 @@ class StoreAdapter(private var itemClickListener: StoreItemClickListener?): Recy
         holder.store = store
         holder.tvName.text = store.name
         holder.tvAdress.text = store.address
-        holder.tvisOpen.text = if(store.isOpen) "Nyitva" else "Zárva"
+
+        if(store.isOpen){
+            holder.tvisOpen.text = "Nyitva"
+            holder.tvisOpen.setTextColor(Color.GREEN)
+        }
+        else {
+            holder.tvisOpen.text = "Zárva"
+            holder.tvisOpen.setTextColor(Color.RED)
+        }
 
     }
 
@@ -45,6 +49,8 @@ class StoreAdapter(private var itemClickListener: StoreItemClickListener?): Recy
         val tvAdress: TextView = itemView.StoreAddress
         val tvisOpen: TextView  = itemView.isOpen
         var store :Store? = null
+
+
 
         init {
             itemView.setOnClickListener {
