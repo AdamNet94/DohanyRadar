@@ -8,6 +8,8 @@ import android.widget.SearchView
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import hu.bme.aut.android.dohanyradarapp.adapter.TobaccoPageAdapter
+import hu.bme.aut.android.dohanyradarapp.fragment.MapFragment
+import hu.bme.aut.android.dohanyradarapp.fragment.StoresListFragment
 import hu.bme.aut.android.dohanyradarapp.model.SharedModel
 import hu.bme.aut.android.dohanyradarapp.model.Store
 import kotlinx.android.synthetic.main.activity_main.*
@@ -26,7 +28,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val model: SharedModel by viewModels()
 
-        vpTobacco.adapter = TobaccoPageAdapter(supportFragmentManager)
+
+        val pageAdapter = TobaccoPageAdapter(supportFragmentManager)
+        pageAdapter.addFrag(StoresListFragment(),"StoreList")
+        pageAdapter.addFrag(MapFragment(),"StoreMap")
+        vpTobacco.adapter = pageAdapter
     }
 
 
